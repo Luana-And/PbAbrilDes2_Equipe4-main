@@ -1,4 +1,5 @@
 package controllers;
+import java.util.ArrayList;
 
 import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.UserService;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -15,11 +16,15 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         try {
             User registeredUser = userService.registerUser(user);
             Map<String, Object> response = new HashMap<>();
@@ -67,3 +72,4 @@ public class UserController {
         return ResponseEntity.ok("Unfollowed user " + userId);
     }
 }
+
