@@ -16,7 +16,7 @@ public class UserMapper {
         user.setUsername(userDto.getNickname());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-        user.setBirthdate(LocalDate.from(userDto.getBirthDate().atStartOfDay()));
+        user.setBirthdate(userDto.getBirthDate());
         return user;
     }
 }
